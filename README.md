@@ -1,2 +1,179 @@
 # Pirex
-Information retrieval application for processing and searching large text files.
+
+Pirex
+Fall '16
+JMU, CS345 Software Engineering, Semester Project
+
+Original Authors:
+	-Andrew Fuller
+	-Moni Ali
+	-Sam Kiwus
+	-Matt Bowles
+
+
+	
+	
+With special help and supervision from:
+	Professor David Bernstein
+	https://users.cs.jmu.edu/bernstdh/Web/index.html
+
+
+
+
+Project Topic/Background:
+	-This team project involved the design, construction, testing, and deployment
+		of an information retrieval (IR) system.
+		
+	-Information retrieval is the study and application of means to store, search,
+		retrieve and disseminate data from large textual databases. IR is the basis
+		for web search engines like Google, tools for searching the contents of files,
+		email search tools, and tools to search for project at online stores like Amazon.
+	
+	-A typical IR system is built around a data structure called in inverted index. 
+		Source texts contain words, each with one or more positions in the source text. 
+		An inverted index (or inverted file or postings file), is a map from words to texts 
+		and text positions. For example, suppose in a collection of books the word "copacetic" 
+		occurs in the third book, the eighth book, and the 73rd book. In the third book it 
+		occurs as the 742nd and 9,923rd word, in the eighth book at the 2,723rd word, and in 
+		the 73rd book as the 4,361st, 4,420th, and 5,345th words. Then the inverted index for 
+		this collection would have an entry like the following:
+		
+		copacetic: <3, {742, 9923}>, <8,{2723}>, <73, {4361, 4420, 5345}>
+		
+		
+	-The word is called an index term. A text identifier and a set of term locations is a posting. 
+		Hence an entry in an inverted index is an index term and a list of postings. Most of the 
+		words in every source text in a collection are included as index term in the inverted index.
+		
+	-When users do a search, they form queries from words, called search terms. A query is a sequence 
+		of search terms possibly including operators specifying search parameters. Each search term 
+		is looked up in the inverted index and the postings for the corresponding index terms are 
+		combined and used to fetch documents from a document store to provide a set of results, 
+		a retrieved set, displayed to the user.
+		
+	-So, IR systems have two major parts: an administrative part that takes source texts as input and 
+		builds inverted indexes and document stores, and a search engine that takes queries as input, 
+		matches them against the inverted index, fetches documents from a document store, and then 
+		displays retrieved sets to users.
+		
+Relevant terminology:
+	-Index term: a sequence of characters stored in an inverted index that is used to retrieve documents.
+	-Inverted Index: a data structure that maps index terms to postings.
+	-Posting: a text identifier and other data about an index term in a document. In this case,
+		the Opus/Document number.
+	-Document: a text unit (paragraph) retrieved in an IR system.
+	-Opus: a collection of documents.
+	-Document Store: a collection of Opuses.
+
+		
+Project Goal:
+	-To create an information retrieval program, named Pirex, that allows a user to search through multiple
+		large text files, query word searches, and display results in a GUI.
+		
+	-Using a graphical user interface, the goal of Pirex is to allow the user to load in an arbitrary number
+		of text files, in this case we will be using .txt files of books downloaded from the Project Gutenberg
+		website https://www.gutenberg.org, and processes them. 
+		
+	-To define process: The text files will be read through line by line, creating a Document for each paragraph, 
+		a posting for each individual word, and adding each posting to the Inverted Index for later searching.
+		-This is done by the SourceProcessor class.
+		
+	-The GUI provides users with three different tabs:
+		-Load tab to enter in locally stored .txt files and process them.
+		-Search tab to search through all loaded files.
+		-Summarize tab to display information about all loaded files.
+	
+	
+	
+		
+What I, Andrew Fuller, worked on:
+	-GUI design and functionality
+		-every .java file/class in the Pirex.src.pirexGUI package
+	-SourceProcessor design and functionality
+		-SourceProcessor.java in the Pirex.src.sourceProcessor package
+		
+		
+		
+		
+How to use the GUI:
+
+	MAIN FUNCTIONALITY
+	1. Run executable .jar file, Pirex.jar
+	2. When Pirex opens, navigate to the Load Documents tab
+	3. Click the Browse button, a File Browser will appear
+	4. Navigate to the TextFiles directory included in the .zip I sent you
+	5. Pick any (only one at a time) .txt file and click the Open button
+	6. Some text fields on the Load Documents Tab will be automatically populated
+	7. Click the Process button
+	8. Information about the .txt file will be displayed such as:
+		-Opus: 			(Path to .txt file)
+		-Title: 		(Title of book)
+		-Author: 		(Author of book)
+		-Opus size: 		(number of Documents/paragraphs in the book)
+		-Opus number: 		(number of opus in the DocumentStore)
+		-New index terms: 	(number of terms from this opus/book)
+		-New postings: 		(number of postings from this opus/book)
+		-Total index terms: 	(total number of terms in the DocumentStore)
+		-Total postings: 	(total postings in the DocumentStore)
+	9. You may repeat steps 3-7 for as many .txt files as you wish, though I only
+		provided six files.
+		
+	10. Once you have added/processed all the .txt file you want to, navigate to the
+		Search for Documents tab
+	11. Type a search word in the text field labeled Query
+		-each word searched will be stored in the drop down box below
+		-if the drop down box has a word selected, it will search by that word
+		-set the combo box to "" to make new searches
+	12. Press the Search button
+	13. If the search word is contained in any of the loaded .txt files/inverted index,
+		the text area below the drop down box will be populated with posting information
+		in the following order:
+		- Opus number, Author, Title, Document/Paragraph Number, First Sentence of the Document/Paragraph
+	14. You may now click on any of the lines displayed in the text area below the drop down box
+	15. Once a posting has been selected, the entire Document/paragraph will be displayed in the lower
+		text area, with the search word being highlighted
+		
+	16. Once done searching, navigate to the Summarize Documents tab
+	17. Click the Summarize button to see information about each Opus/.txt file in the DocumentStore, and also
+		the current Indexed term/posting counts
+	
+	ADDITIONAL FUNCTIONALITY
+	18. Once you have loaded in one or more .txt files, you may save the SourceProcessor containing the DocumentStore
+		and InvertedIndex for a future session
+		-In the menu bar, click File
+		-Click Save SP
+		-Select where you would like to save the file
+		-You MUST save the file as a .ser file
+	19. If you would like to load a SourceProcessor from a previous session
+		-Start Pirex but do not load any .txt files
+		-In the menu bar, click File
+		-Click Load SP
+		-Find/Select the .ser file previously saved
+		-To test if it works, go to the Summarize Documents tab and click Summarize
+	
+	20. Once you have performed some searches, you may save them to a .txt file for a future session
+		-In the menu bar, click File
+		-Click Save Q
+		-Select where you would like to save the file
+		-You MUST save the file as a .txt file
+	21. If you would like to load a file containing previous searches
+		-In the menu bar, click File
+		-Click Load Q
+		-Find/Select the .txt file previously saved
+		-To test if it works, go the Search for Documents tab and open the drop down menu
+		
+	22. If you would like to export posting results for a search word
+		-In the menu bar, click File
+		-Click Export
+		-A .txt file containing the postings for that search word will be written to a SearchResults.txt file that will appear
+			in the Pirex directory
+			
+	23. To see information about the basic functionality of Pirex
+		-In the menu bar, click Help
+		-Click About
+		
+	24. To see more in-depth information about Pirex functionality
+		-In the menu bar, click Help
+		-Click Index
+		
+
