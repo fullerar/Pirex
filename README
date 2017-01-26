@@ -70,7 +70,7 @@ Project Goal:
 		
 	-Using a graphical user interface, the goal of Pirex is to allow the user to load in an arbitrary number
 		of text files, in this case we will be using .txt files of books downloaded from the Project Gutenberg
-		website https://www.gutenberg.org, and processes them. 
+		website https://www.gutenberg.org, and processes them. *** See disclaimer at bottom of page. ***
 		
 	-To define process: The text files will be read through line by line, creating a Document for each paragraph, 
 		a posting for each individual word, and adding each posting to the Inverted Index for later searching.
@@ -173,5 +173,9 @@ How to use the GUI:
 	24. To see more in-depth information about Pirex functionality
 		-In the menu bar, click Help
 		-Click Index
+		
+***DISCLAIMER***:
+	THE .TXT FILES IN THE TextFiles FOLDER ARE NOT MINE. I DO NOT CLAIM RIGHTS TO THEM IN ANY FORM. THE RIGHTS TO THOSE CORRESPONDING
+	FILES GOES TO THEIR INDIVIDUAL AUTHORS.
 		
 
